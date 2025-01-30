@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/cv1.css' %}">
+    <title>{{ cv.titre }}</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="resume">
+            <div class="left">
+                
+                <div class="img_holder">
+                    <img src="{{ etudiant.photo.url }}"  height="60%" width="60%">
+                </div>
+                <div class="contact_wrap pb">
+                    <div class="title">contact</div>
+                    <div class="contact">
+                        <ul>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="icon">
+                                        <img src="image/telephone (1).png" alt="">
+                                    </div>
+                                    <div class="text">{{ etudiant.contact }}/ {{ etudiant.mobile }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="icon">
+                                        <img src="image/email.png" alt="">
+                                    </div>
+                                    <div class="text">{{ etudiant.email }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="li_wrap">
+                                    <div class="icon">
+                                        <img src="image/maison.png" alt="">
+                                    </div>
+                                    <div class="text"><?php echo $etatCivil["contacts"]["adresse"] ?></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    </div >
+            
+             <div class="competences_wrap pb">
+             <div class="title">competences</div>
+             <div class="competences">
+                <ul>
+                {% for competence in competences %}
+                    <li>
+                        <div class="li_wrap">
+                            <div class="text"><strong>{{ competence.titre }}</strong> - {{ competence.outils }}</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            </div >
+            <div class="loisirs_wrap pb">
+                <div class="title">loisirs</div>
+                <div class="loisirs">
+                   <ul>
+                       <li>
+ {% for loisir in loisirs %}
+                           <div class="li_wrap">
+                            <div class="icon">
+                                <img src="image/voyage.png" alt=""></div>
+                               <div class="text">{{ loisir.libelle }}</div>
+                           </div>
+                            {% endfor %}
+                       </li>
+                   </ul>
+               </div>
+               </div >
+        </div>
+            <div class="right">
+               <div class="header">
+                <div class="name_role">
+                    <div class="name">{{ cv.etudiant.nom }} {{ cv.etudiant.prenom }}</div>
+                    <div class="role"> étudiant</div>
+                    <div class="about"> 
+                    <strong>Nationalité :</strong> {{ etudiant.nationalite }}</br>
+                        <strong>Statut matrimonial :</strong> {{ etudiant.situation_matrimoniale }}</br>
+                        <strong>Mobile :</strong> {{ etudiant.mobile }}
+                    </div>
+                </div>
+               </div>
+               <div class="right_inner">
+                <div class="education">
+                    <div class="title">EDUCATION</div>
+                   <div class="education_wrap">
+                    <ul>
+                        <li>
+                        {% for formation in formations %}
+                            <div class="li_wrap"> 
+                                <div class="date">{{ formation.diplomes }}</div>
+                                <div class="info">
+                                    <p class="info_title">{{ formation.etablissement }} </p>
+                                    <p class="info_com">{{ formation.annee }}, {{ formation.localite }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                       
+                    </ul>
+                   </div>
+
+                </div>
+               
+               
+               <div class="experience">
+                <div class="title">Expérience</div>
+               <div class="experience_wrap">
+                <ul>
+                {% for experience in experiences %}
+                    <li>
+                        <div class="li_wrap"> 
+                            <div class="date">{{ experience.entreprise }} 
+                            </div>
+                            <div class="info">
+                                <p class="info_title">{{ experience.titre }}</p>
+                                <p class="info_com">{{ experience.taches }} ({{ experience.date_debut }} - {{ experience.date_fin }})</p>
+                            </div>
+                        </div>
+                    </li>
+                  
+                    
+                    {% endfor %}
+                </ul>
+               </div>
+             </div>
+             <div class="langue">
+                <div class="title">Langues</div>
+                <ul>
+                {% for langue in langues %}
+                    <li><strong>{{ langue.libelle }}</strong></li>
+                    </div>
+                    {% endfor %}
+                </ul>
+               
+            </div>
+            <div class="langue">
+                <div class="title">Langues</div>
+                <ul>
+                {% for projet in projets %}
+                    <li> <strong>{{ projet.titre }}</strong>
+                    <p>{{ projet.description }}</p></li>
+                    </div>
+                    {% endfor %}
+                </ul>
+               
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+       
+
+</body>
+</html>

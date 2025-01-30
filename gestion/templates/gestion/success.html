@@ -1,0 +1,433 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créateur de CV Professionnel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .cv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .cv-header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 2rem;
+        }
+        .cv-body {
+            display: flex;
+            padding: 2rem;
+        }
+        .cv-sidebar {
+            flex: 1;
+            padding-right: 2rem;
+        }
+        .cv-main {
+            flex: 2;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .progress-bar {
+            height: 0.5rem;
+            background-color: #ecf0f1;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #3498db;
+        }
+        .input-field {
+            @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+        }
+        .btn-add {
+            @apply flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+        }
+        .section-container {
+            @apply space-y-4 p-4 bg-gray-50 rounded-lg relative mb-4;
+        }
+        .remove-btn {
+            @apply absolute top-2 right-2 text-red-500 hover:text-red-700;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="cv-container rounded-lg overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+            <div class="space-y-6">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Créateur de CV Professionnel</h1>
+                
+                <div class="section-container">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Formations</h2>
+                    <div id="formations-container"></div>
+                    <button onclick="ajouterFormation()" class="btn-add mt-4">
+                        <i class="fas fa-plus mr-2"></i>Ajouter une formation
+                    </button>
+                </div>
+
+                <div class="section-container">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Expériences professionnelles</h2>
+                    <div id="experiences-container"></div>
+                    <button onclick="ajouterExperience()" class="btn-add mt-4">
+                        <i class="fas fa-plus mr-2"></i>Ajouter une expérience
+                    </button>
+                </div>
+
+                <div class="section-container">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Compétences</h2>
+                    <div id="competences-container"></div>
+                    <button onclick="ajouterCompetence()" class="btn-add mt-4">
+                        <i class="fas fa-plus mr-2"></i>Ajouter une compétence
+                    </button>
+                </div>
+
+                <div class="section-container">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Langues</h2>
+                    <div id="langues-container"></div>
+                    <button onclick="ajouterLangue()" class="btn-add mt-4">
+                        <i class="fas fa-plus mr-2"></i>Ajouter une langue
+                    </button>
+                </div>
+            </div>
+
+            <div id="cv-preview" class="bg-white shadow-xl rounded-lg overflow-hidden">
+                <div class="cv-header">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img src="/placeholder.svg?height=128&width=128" alt="Photo de profil" class="w-32 h-32 rounded-full object-cover">
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-3xl font-bold">John Doe</h2>
+                            <p class="text-xl">Développeur Web</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p>Développeur web passionné avec 5 ans d'expérience dans la création d'applications web modernes et réactives.</p>
+                    </div>
+                    <div class="mt-4 flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>john.doe@example.com | 
+                        <i class="fas fa-phone ml-2 mr-2"></i>+33 6 12 34 56 78
+                    </div>
+                </div>
+                <div class="cv-body">
+                    <div class="cv-sidebar">
+                        <div class="mb-6">
+                            <h3 class="section-title">Compétences</h3>
+                            <!-- Les compétences seront ajoutées dynamiquement ici -->
+                        </div>
+                        <div>
+                            <h3 class="section-title">Langues</h3>
+                            <!-- Les langues seront ajoutées dynamiquement ici -->
+                        </div>
+                    </div>
+                    <div class="cv-main">
+                        <div class="mb-6">
+                            <h3 class="section-title">Expériences professionnelles</h3>
+                            <!-- Les expériences seront ajoutées dynamiquement ici -->
+                        </div>
+                        <div>
+                            <h3 class="section-title">Formation</h3>
+                            <!-- Les formations seront ajoutées dynamiquement ici -->
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cvData = {
+            formations: [],
+            experiences: [],
+            competences: [],
+            langues: []
+        };
+
+        function renderCVPreview() {
+            const preview = document.getElementById('cv-preview');
+            const competencesContainer = preview.querySelector('.cv-sidebar .mb-6');
+            const languesContainer = preview.querySelector('.cv-sidebar > div:last-child');
+            const experiencesContainer = preview.querySelector('.cv-main .mb-6');
+            const formationsContainer = preview.querySelector('.cv-main > div:last-child');
+
+            // Render compétences
+            competencesContainer.innerHTML = `
+                <h3 class="section-title">Compétences</h3>
+                ${cvData.competences.map(competence => `
+                    <div class="mb-2">
+                        <p class="font-semibold">${competence.titre}</p>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: ${competence.niveau}%"></div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+
+            // Render langues
+            languesContainer.innerHTML = `
+                <h3 class="section-title">Langues</h3>
+                ${cvData.langues.map(langue => `
+                    <div class="mb-2">
+                        <p class="font-semibold">${langue.langue}</p>
+                        <p class="text-gray-600">${langue.niveau}</p>
+                    </div>
+                `).join('')}
+            `;
+
+            // Render expériences
+            experiencesContainer.innerHTML = `
+                <h3 class="section-title">Expériences professionnelles</h3>
+                ${cvData.experiences.map(experience => `
+                    <div class="mb-4">
+                        <h4 class="font-semibold">${experience.titre}</h4>
+                        <p class="text-gray-600">${experience.entreprise}</p>
+                        <p class="text-sm text-gray-500">${experience.dateDebut} - ${experience.dateFin}</p>
+                        <p class="mt-2">${experience.taches}</p>
+                    </div>
+                `).join('')}
+            `;
+
+            // Render formations
+            formationsContainer.innerHTML = `
+                <h3 class="section-title">Formation</h3>
+                ${cvData.formations.map(formation => `
+                    <div class="mb-4">
+                        <h4 class="font-semibold">${formation.diplome}</h4>
+                        <p class="text-gray-600">${formation.etablissement}, ${formation.localite}</p>
+                        <p class="text-sm text-gray-500">${formation.dateDebut} - ${formation.dateFin}</p>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        function ajouterFormation() {
+            const container = document.getElementById('formations-container');
+            const index = cvData.formations.length;
+            const formationDiv = document.createElement('div');
+            formationDiv.className = 'section-container';
+            formationDiv.innerHTML = `
+                <input type="text" placeholder="Diplôme" name="diplomes[]" class="input-field mb-2" oninput="updateFormation(${index}, 'diplome', this.value)">
+                <input type="text" placeholder="Établissement" name="etablissement[]" class="input-field mb-2" oninput="updateFormation(${index}, 'etablissement', this.value)">
+                <div class="grid grid-cols-2 gap-2 mb-2">
+                    <input type="date" placeholder="Date de début" name="date_debut[]" class="input-field" oninput="updateFormation(${index}, 'dateDebut', this.value)">
+                    <input type="date" placeholder="Date de fin" name="date_fin[]" class="input-field" oninput="updateFormation(${index}, 'dateFin', this.value)">
+                </div>
+                <input type="text" placeholder="Localité" name="localite[]" class="input-field" oninput="updateFormation(${index}, 'localite', this.value)">
+                <button onclick="supprimerFormation(${index})" class="remove-btn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(formationDiv);
+            cvData.formations.push({});
+        }
+
+        function updateFormation(index, field, value) {
+            cvData.formations[index][field] = value;
+            renderCVPreview();
+        }
+
+        function supprimerFormation(index) {
+            cvData.formations.splice(index, 1);
+            renderFormations();
+            renderCVPreview();
+        }
+
+        function renderFormations() {
+            const container = document.getElementById('formations-container');
+            container.innerHTML = '';
+            cvData.formations.forEach((formation, index) => {
+                const formationDiv = document.createElement('div');
+                formationDiv.className = 'section-container';
+                formationDiv.innerHTML = `
+                    <input type="text" placeholder="Diplôme" class="input-field mb-2"  value="${formation.diplome || ''}" oninput="updateFormation(${index}, 'diplome', this.value)">
+                    <input type="text" placeholder="Établissement" class="input-field mb-2" value="${formation.etablissement || ''}" oninput="updateFormation(${index}, 'etablissement', this.value)">
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <input type="date" placeholder="Date de début" class="input-field" value="${formation.dateDebut || ''}" oninput="updateFormation(${index}, 'dateDebut', this.value)">
+                        <input type="date" placeholder="Date de fin" class="input-field" value="${formation.dateFin || ''}" oninput="updateFormation(${index}, 'dateFin', this.value)">
+                    </div>
+                    <input type="text" placeholder="Localité" class="input-field" value="${formation.localite || ''}" oninput="updateFormation(${index}, 'localite', this.value)">
+                    <button onclick="supprimerFormation(${index})" class="remove-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                container.appendChild(formationDiv);
+            });
+        }
+
+        function ajouterExperience() {
+            const container = document.getElementById('experiences-container');
+            const index = cvData.experiences.length;
+            const experienceDiv = document.createElement('div');
+            experienceDiv.className = 'section-container';
+            experienceDiv.innerHTML = `
+                <input type="text" placeholder="Titre du poste" name="titre_experience[]"  class="input-field mb-2" oninput="updateExperience(${index}, 'titre', this.value)">
+                <input type="text" placeholder="Entreprise" name="entreprise[]" class="input-field mb-2" oninput="updateExperience(${index}, 'entreprise', this.value)">
+                <div class="grid grid-cols-2 gap-2 mb-2">
+                    <input type="date" placeholder="Date de début" name="date_debut[]" class="input-field" oninput="updateExperience(${index}, 'dateDebut', this.value)">
+                    <input type="date" placeholder="Date de fin" name="date_fin[]" class="input-field" oninput="updateExperience(${index}, 'dateFin', this.value)">
+                </div>
+                <textarea placeholder="Tâches et responsabilités" name="taches[]" class="input-field mb-2" oninput="updateExperience(${index}, 'taches', this.value)"></textarea>
+                <button onclick="supprimerExperience(${index})" class="remove-btn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(experienceDiv);
+            cvData.experiences.push({});
+        }
+
+        function updateExperience(index, field, value) {
+            cvData.experiences[index][field] = value;
+            renderCVPreview();
+        }
+
+        function supprimerExperience(index) {
+            cvData.experiences.splice(index, 1);
+            renderExperiences();
+            renderCVPreview();
+        }
+
+        function renderExperiences() {
+            const container = document.getElementById('experiences-container');
+            container.innerHTML = '';
+            cvData.experiences.forEach((experience, index) => {
+                const experienceDiv = document.createElement('div');
+                experienceDiv.className = 'section-container';
+                experienceDiv.innerHTML = `
+                    <input type="text" placeholder="Titre du poste" class="input-field mb-2" value="${experience.titre || ''}" oninput="updateExperience(${index}, 'titre', this.value)">
+                    <input type="text" placeholder="Entreprise" class="input-field mb-2" value="${experience.entreprise || ''}" oninput="updateExperience(${index}, 'entreprise', this.value)">
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <input type="date" placeholder="Date de début" class="input-field" value="${experience.dateDebut || ''}" oninput="updateExperience(${index}, 'dateDebut', this.value)">
+                        <input type="date" placeholder="Date de fin" class="input-field" value="${experience.dateFin || ''}" oninput="updateExperience(${index}, 'dateFin', this.value)">
+                    </div>
+                    <textarea placeholder="Tâches et responsabilités" class="input-field mb-2" oninput="updateExperience(${index}, 'taches', this.value)">${experience.taches || ''}</textarea>
+                    <button onclick="supprimerExperience(${index})" class="remove-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                container.appendChild(experienceDiv);
+            });
+        }
+
+        function ajouterCompetence() {
+            const container = document.getElementById('competences-container');
+            const index = cvData.competences.length;
+            const competenceDiv = document.createElement('div');
+            competenceDiv.className = 'section-container';
+            competenceDiv.innerHTML = `
+                <input type="text" name="titre_competence[]" placeholder="Compétence" class="input-field mb-2"  name="competence_niveau" oninput="updateCompetence(${index}, 'titre', this.value)">
+                <input type="range" min="0" max="100" value="50" class="input-field mb-2" oninput="updateCompetence(${index}, 'niveau', this.value)">
+                <button onclick="supprimerCompetence(${index})" class="remove-btn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(competenceDiv);
+            cvData.competences.push({});
+        }
+
+        function updateCompetence(index, field, value) {
+            cvData.competences[index][field] = value;
+            renderCVPreview();
+        }
+
+        function supprimerCompetence(index) {
+            cvData.competences.splice(index, 1);
+            renderCompetences();
+            renderCVPreview();
+        }
+
+        function renderCompetences() {
+            const container = document.getElementById('competences-container');
+            container.innerHTML = '';
+            cvData.competences.forEach((competence, index) => {
+                const competenceDiv = document.createElement('div');
+                competenceDiv.className = 'section-container';
+                competenceDiv.innerHTML = `
+                    <input type="text" placeholder="Compétence" class="input-field mb-2" value="${competence.titre || ''}" oninput="updateCompetence(${index}, 'titre', this.value)">
+                    <input type="range" min="0" max="100" value="${competence.niveau || 50}" class="input-field mb-2" oninput="updateCompetence(${index}, 'niveau', this.value)">
+                    <button onclick="supprimerCompetence(${index})" class="remove-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                container.appendChild(competenceDiv);
+            });
+        }
+
+        function ajouterLangue() {
+            const container = document.getElementById('langues-container');
+            const index = cvData.langues.length;
+            const langueDiv = document.createElement('div');
+            langueDiv.className = 'section-container';
+            langueDiv.innerHTML = `
+                <input type="text" placeholder="Langue" name="langues[]" class="input-field mb-2" oninput="updateLangue(${index}, 'langue', this.value)">
+                <select name="niveau" class="input-field mb-2" oninput="updateLangue(${index}, 'niveau', this.value)">
+                    <option value="">-- Sélectionner un niveau --</option>
+                    <option value="Débutant">Débutant</option>
+                    <option value="Intermédiaire">Intermédiaire</option>
+                    <option value="Avancé">Avancé</option>
+                    <option value="Bilingue">Bilingue</option>
+                </select>
+                <button onclick="supprimerLangue(${index})" class="remove-btn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(langueDiv);
+            cvData.langues.push({});
+        }
+
+        function updateLangue(index, field, value) {
+            cvData.langues[index][field] = value;
+            renderCVPreview();
+        }
+
+        function supprimerLangue(index) {
+            cvData.langues.splice(index, 1);
+            renderLangues();
+            renderCVPreview();
+        }
+
+        function renderLangues() {
+            const container = document.getElementById('langues-container');
+            container.innerHTML = '';
+            cvData.langues.forEach((langue, index) => {
+                const langueDiv = document.createElement('div');
+                langueDiv.className = 'section-container';
+                langueDiv.innerHTML = `
+                    <input type="text" placeholder="Langue" class="input-field mb-2" value="${langue.langue || ''}" oninput="updateLangue(${index}, 'langue', this.value)">
+                    <select class="input-field mb-2" oninput="updateLangue(${index}, 'niveau', this.value)">
+                        <option value="">-- Sélectionner un niveau --</option>
+                        <option value="Débutant" ${langue.niveau === 'Débutant' ? 'selected' : ''}>Débutant</option>
+                        <option value="Intermédiaire" ${langue.niveau === 'Intermédiaire' ? 'selected' : ''}>Intermédiaire</option>
+                        <option value="Avancé" ${langue.niveau === 'Avancé' ? 'selected' : ''}>Avancé</option>
+                        <option value="Bilingue" ${langue.niveau === 'Bilingue' ? 'selected' : ''}>Bilingue</option>
+                    </select>
+                    <button onclick="supprimerLangue(${index})" class="remove-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                container.appendChild(langueDiv);
+            });
+        }
+
+        // Initial render
+        renderCVPreview();
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+@import url('https ://fonts.googleapis.com/css2 ?family=Dancing+Script&display=swap');
+body{
+    font-family: 'Roboto', sans-serif, cursive;
+    padding: 20px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1919;
+}
+.parent_principal{
+    background-color: #fff;
+}
+nav{
+    display: flex;
+    align-items: center;
+    background-color: rgb(46, 131, 211);
+    max-width: 900px;
+    align-items: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    justify-content: space-around;
+}
+nav div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+nav div span{
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+}
+nav div p{
+    color: #fff;
+}
+nav img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    border: #c2c0c0 7px solid;
+}
+body .block_parent{
+    display: flex;
+    max-width: 900px;
+}
+.block_parent .block_gauche{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 45px;
+    background-color: black;
+    margin-right: 12px;
+    width: 200px;
+    color: #fff;
+}
+.block_parent .block_gauche hr{
+    border: 2px solid #fff; 
+}
+.block_parent .block_gauche .etat_civil,#compt-info ul{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+   
+}
+.block_parent .block_gauche #compt-info ul{
+    list-style: none;
+    padding-left: 20px;
+} 
+.block_gauche #compt-info ul li progress{
+    accent-color: rgb(6, 15, 143);
+}
+
+.block_parent .education{
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    max-width: 610px;
+    padding-right: 20px;
+}
+.block_parent .education i{
+    color: rgb(46, 131, 211);
+}
+.block_parent .education .profil hr{
+    border: 2px solid rgb(46, 131, 211); 
+}
+.block_parent .education .profil p{
+    padding: 12px;
+}
+.block_parent .education .diplome hr{
+    border: 2px solid rgb(46, 131, 211); 
+}
+.block_parent .education .diplome ul{
+    list-style: none;
+}
+.block_parent .education .diplome li{
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+.block_parent .education .diplome h5{
+    color: rgb(46, 131, 211);
+}
+.block_parent .education .competence-loisir{
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    padding: 20px;
+    
+}
+.competence-loisir hr{
+    border: 2px solid rgb(46, 131, 211); 
+}
+.competence-loisir .competence #competence1 ul{
+    list-style:none;
+    gap: 17px;
+}
+.competence-loisir .competence #competence1 progress{
+    accent-color: rgb(6, 15, 143);
+}
+.competence-loisir .competence h4{
+    color: rgb(46, 131, 211);
+    text-decoration: underline;
+}
+.competence-loisir .competence{
+    display: flex;
+    flex-direction: column;
+}
+.competence-loisir .competence #competence1{
+    display: flex;
+    gap: 40px;
+}
+.competence-loisir .competence #loisirs {
+    gap: 30px;
+}
+footer{
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(46, 131, 211);
+    max-width: 900px;
+}
+footer i{
+    color: #fff;
+}
+@media screen and (max-width:580px){
+    body{
+        padding: 0;
+    }
+    .block_parent .education{
+        padding: 0;
+        font-size: 8px;
+    }
+    .block_parent .block_gauche{
+        font-size: 8px;
+    }
+    .block_parent .block_gauche .etat_civil{
+        font-size: 8px;
+        padding: 5px;
+    }
+    .block_parent .block_gauche .etat_civil,#compt-info ul{
+        padding: 0;
+    }
+    
+    .block_parent .education .diplome li{
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width:800px) {
+    nav{
+        padding: 0;
+    }
+    nav div span{
+        font-size: 20px;
+    }
+    .block_parent .block_gauche{
+        padding: 0;
+    }
+    .block_parent .education{
+        padding: 0;
+        font-size: 12px;
+    }
+    .block_parent .block_gauche{
+        font-size: 12px;
+    }
+    .block_parent .block_gauche .etat_civil{
+        font-size: 12px;
+        padding: 5px;
+    }
+    footer{
+        font-size: 12px;
+    }
+}

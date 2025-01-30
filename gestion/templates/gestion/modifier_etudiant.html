@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier Étudiant</title>
+    <title>monCV.com - Créez votre CV professionnel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+           
+        .contact-form {
+            
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .contact-form input, .contact-form select, .contact-form textarea {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #b92978;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .contact-form a {
+            width: 100%;
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .contact-form button:hover {
+            background-color:rgb(179, 0, 18);
+        }
+        .titre-container {
+            margin-top: 80px; /* Ajustez cette valeur en fonction de la hauteur du header */
+            padding: 20px;
+        }
+
+        /* Styles pour le titre */
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        /* Header et navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #b92978;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #b92978;
+        }
+
+        /* Hero section */
+        .hero {
+            background-color: #b92978;
+            color: #fff;
+            text-align: center;
+            padding: 8rem 1rem 4rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #fff;
+            color: #b92978;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #b92978;
+            color: #fff;
+        }
+
+        /* Search section */
+        .search-section {
+            background-color: #fff;
+            padding: 2rem 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .search-section form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .search-section input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+        }
+
+        .search-section button {
+            background-color: #b92978;
+            color: #fff;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-section button:hover {
+            background-color: #b92978;
+        }
+
+        /* CV showcase */
+        .cv-showcase {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cv-showcase h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .cv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .cv-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .cv-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cv-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .cv-card-content {
+            padding: 1rem;
+        }
+
+        .cv-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Features section */
+        .features {
+            background-color: #f1f8fe;
+            padding: 4rem 1rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            text-align: center;
+            max-width: 300px;
+            margin: 1rem;
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: #b92978;
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonials section */
+        .testimonials {
+            padding: 4rem 1rem;
+            background-color: #fff;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial cite {
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 4rem 1rem 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin-bottom: 2rem;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-right: 1rem;
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        /* Modification pour diviser le formulaire en deux colonnes */
+        .form-columns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-column {
+            flex: 1;
+            margin: 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">monCV.com</div>
+            <ul>
+                <li><a href="{% url 'list_cv' %}"><i class="fas fa-file-alt"></i> Accueil</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Modèles CV</a></li>
+                <li><a href="{% url 'list_cv_by_etudiant' %}"><i class="fas fa-file-alt"></i> Mes CV</a></li>
+                <li><a href="{% url 'modifier_etudiant' %}"><i class="fas fa-user"></i> Compte</a></li>
+                <li><a href="{% url 'deconnexion' %}"><i class="fas fa-user"></i> Deconnection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="contact-form">
+            <div class="titre-container">
+                <h1>Modifier Étudiant: {{ etudiant.prenom }} {{ etudiant.nom }}</h1>
+            </div>
+                        <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-columns">
+                    <div class="form-column">
+                        <label for="prenom">Prénom:</label>
+                        <input type="text" name="prenom" value="{{ etudiant.prenom }}"><br>
+
+                        <label for="nom">Nom:</label>
+                        <input type="text" name="nom" value="{{ etudiant.nom }}"><br>
+
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" value="{{ etudiant.email }}"><br>
+
+                        <label for="contact">Contact:</label>
+                        <input type="text" name="contact" value="{{ etudiant.contact }}"><br>
+
+                        <label for="age">Âge:</label>
+                        <input type="number" min='1' name="age" value="{{ etudiant.age }}"><br>
+                        <label for="nationalite">Nationalité:</label>
+                        <input type="text" name="nationalite" value="{{ etudiant.nationalite }}"><br>
+                    </div>
+                    <div class="form-column">
+                        
+
+                        <label for="situation_matrimoniale">Situation Matrimoniale:</label>
+                        <select name="situation_matrimoniale">
+                            <option value="Celibataire" {% if etudiant.situation_matrimoniale == 'Celibataire' %}selected{% endif %}>Célibataire</option>
+                            <option value="Marie" {% if etudiant.situation_matrimoniale == 'Marie' %}selected{% endif %}>Marié</option>
+                            <option value="Divorcé" {% if etudiant.situation_matrimoniale == 'Divorcé' %}selected{% endif %}>Divorcé</option>
+                            <option value="Veuve/Veuf" {% if etudiant.situation_matrimoniale == 'Veuve/Veuf' %}selected{% endif %}>Veuve/Veuf</option>
+                        </select><br>
+
+                        <label for="mobile">Mobile:</label>
+                        <input type="text" name="mobile" value="{{ etudiant.mobile }}"><br>
+
+                        <label for="facebook">Facebook:</label>
+                        <input type="url" name="facebook" value="{{ etudiant.facebook }}"><br>
+
+                        <label for="linkedin">LinkedIn:</label>
+                        <input type="url" name="linkedin" value="{{ etudiant.linkedin }}"><br>
+
+                        <label for="instagram">Instagram:</label>
+                        <input type="url" name="instagram" value="{{ etudiant.instagram }}"><br>
+
+                        <label for="photo">Photo:</label>
+                        <input type="file" name="photo"><br>
+                    </div>
+                </div>
+                <button type="submit">Enregistrer</button>
+            </form>
+            
+        </div>
+    </main>
+
+</body>
+</html>

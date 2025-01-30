@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon CV - Sélecteur de modèles</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .cv-sidebar {
+            background-color: #f4f4f4;
+            padding: 2rem;
+            width: 300px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            margin-left: 300px;
+        }
+
+        h1, h2 {
+            margin-bottom: 1rem;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .skills-list {
+            list-style-type: none;
+        }
+
+        .skills-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Sidebar pour les modèles de CV */
+        .template-sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            padding: 2rem;
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .template-sidebar h2 {
+            margin-bottom: 1rem;
+        }
+
+        .template-list {
+            list-style-type: none;
+        }
+
+        .template-list li {
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .template-list li:hover {
+            text-decoration: underline;
+        }
+
+        .template-trigger {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 100px;
+            background-color: #333;
+            z-index: 999;
+        }
+
+        /* Styles pour les différents modèles */
+        .template-classique {
+            /* Styles par défaut */
+        }
+
+        .template-moderne {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            color: #2c3e50;
+        }
+
+        .template-moderne .cv-sidebar {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .template-moderne .main-content {
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .template-creatif {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #ffd700;
+            color: #8b4513;
+        }
+
+        .template-creatif .cv-sidebar {
+            background-color: #ff6347;
+            color: white;
+        }
+
+        .template-creatif .main-content {
+            background-color: #fffacd;
+            border-radius: 20px;
+        }
+
+        .template-minimaliste {
+            font-family: 'Helvetica', Arial, sans-serif;
+            background-color: white;
+            color: black;
+        }
+
+        .template-minimaliste .cv-sidebar {
+            background-color: #f8f8f8;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .template-minimaliste .main-content {
+            padding: 4rem;
+        }
+
+        .template-professionnel {
+            font-family: 'Times New Roman', serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .template-professionnel .cv-sidebar {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .template-professionnel .main-content {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .cv-sidebar {
+                width: 100%;
+                position: static;
+                padding: 1rem;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .template-sidebar {
+                width: 100%;
+                left: -100%;
+            }
+        }
+    </style>
+</head>
+<body class="template-classique">
+    <aside class="cv-sidebar">
+        <img src="/placeholder.svg?height=150&width=150" alt="Photo de profil" class="profile-img">
+        <h1>Jean Dupont</h1>
+        <p>Développeur Web</p>
+        
+        <div class="section">
+            <h2>Contact</h2>
+            <p>Email: jean.dupont@example.com</p>
+            <p>Téléphone: 01 23 45 67 89</p>
+            <p>Localisation: Paris, France</p>
+        </div>
+        
+        <div class="section">
+            <h2>Compétences</h2>
+            <ul class="skills-list">
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+                <li>Git</li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="section">
+            <h2>Résumé professionnel</h2>
+            <p>Développeur web expérimenté avec une passion pour la création de sites web réactifs et conviviaux. Compétent en technologies front-end et back-end avec un fort accent sur les frameworks JavaScript modernes.</p>
+        </div>
+
+        <div class="section">
+            <h2>Expérience professionnelle</h2>
+            <div class="experience-item">
+                <h3>Développeur Web Senior - Tech Solutions SA</h3>
+                <p>Janvier 2018 - Présent</p>
+                <ul>
+                    <li>Direction d'une équipe de 5 développeurs dans la création d'applications web réactives</li>
+                    <li>Mise en place d'une nouvelle architecture front-end basée sur React, améliorant les performances de 40%</li>
+                    <li>Mentorat de développeurs juniors et réalisation de revues de code</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Développeur Web - Créations Numériques SARL</h3>
+                <p>Juin 2015 - Décembre 2017</p>
+                <ul>
+                    <li>Développement et maintenance de sites web clients utilisant HTML, CSS et JavaScript</li>
+                    <li>Collaboration avec les designers pour implémenter des mises en page pixel-perfect</li>
+                    <li>Optimisation des performances des sites web et mise en œuvre des meilleures pratiques SEO</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Formation</h2>
+            <div class="education-item">
+                <h3>Licence en Informatique</h3>
+                <p>Université de Technologie - Diplômé en 2015</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="template-trigger"></div>
+
+    <aside class="template-sidebar">
+        <h2>Modèles de CV</h2>
+        <ul class="template-list">
+            <li data-template="classique">Modèle Classique</li>
+            <li data-template="moderne">Modèle Moderne</li>
+            <li data-template="creatif">Modèle Créatif</li>
+            <li data-template="minimaliste">Modèle Minimaliste</li>
+            <li data-template="professionnel">Modèle Professionnel</li>
+        </ul>
+    </aside>
+
+    <script>
+        const templateSidebar = document.querySelector('.template-sidebar');
+        const templateTrigger = document.querySelector('.template-trigger');
+        const body = document.body;
+
+        templateTrigger.addEventListener('mouseenter', () => {
+            templateSidebar.style.left = '0';
+        });
+
+        templateSidebar.addEventListener('mouseleave', () => {
+            templateSidebar.style.left = '-250px';
+        });
+
+        const templateItems = document.querySelectorAll('.template-list li');
+        templateItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const template = item.getAttribute('data-template');
+                body.className = `template-${template}`;
+                templateSidebar.style.left = '-250px';
+            });
+        });
+    </script>
+</body>
+</html>
+
